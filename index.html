@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pha5e Hero Section</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #0a0a0a;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        .cta-button:hover {
+            background: #fff;
+            color: #0a0a0a;
+            transform: scale(1.05);
+        }
+
+        .gradient-blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.4;
+            border-radius: 50%;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mouse-follow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="mouse-follow"></div>
+        <div class="gradient-blob" style="background: #7f00ff; width: 400px; height: 400px; top: 20%; left: 20%"></div>
+        <div class="gradient-blob" style="background: #00ff88; width: 300px; height: 300px; top: 60%; right: 20%"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Innovate Beyond</h1>
+            <p class="hero-subtitle">Redefining digital experiences through advanced technology</p>
+            <button class="cta-button">Explore Possibilities</button>
+        </div>
+    </section>
+
+    <script>
+        // Mouse follow effect
+        document.addEventListener('mousemove', (e) => {
+            const follower = document.querySelector('.mouse-follow');
+            follower.style.left = `${e.clientX}px`;
+            follower.style.top = `${e.clientY}px`;
+        });
+
+        // Parallax effect for gradient blobs
+        document.addEventListener('mousemove', (e) => {
+            const blobs = document.querySelectorAll('.gradient-blob');
+            const speed = 0.3;
+            
+            blobs.forEach((blob, index) => {
+                const x = (window.innerWidth - e.pageX * speed * (index + 1)) / 100;
+                const y = (window.innerHeight - e.pageY * speed * (index + 1)) / 100;
+                blob.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Initial animation trigger
+        window.addEventListener('load', () => {
+            document.querySelector('.hero-title').style.animation = 'fadeInUp 1s ease-out forwards';
+        });
+    </script>
+</body>
+</html>
